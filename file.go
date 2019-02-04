@@ -5,8 +5,6 @@ import (
 	"os"
 )
 
-var FileNotFoundError error = errors.New("file not found")
-
 // _patternType represents what type of pattern each filePattern is. It can be
 // a path or a glob.
 type _patternType int
@@ -55,7 +53,7 @@ func (c *confFile) read() ([]byte, error) {
 // FileNotFoundError.
 func (s *Snuffler) addFile(p string) error {
 	if _, err := os.Stat(p); err != nil {
-		return FileNotFoundError
+		return err
 	}
 	cf := &confFile{
 		fileName: p,
