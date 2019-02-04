@@ -20,9 +20,9 @@ func (s *Snuffler) AddFile(p string) error {
 	return s.addFile(p)
 }
 
-// AddFile accepts a string containing a filename and adds it to the list of
-// files that the snuffler should load. This file need not exist. If you want
-// to add a file that must exist, use AddFile.
+// MaybeAddFile accepts a string containing a filename and adds it to the list
+// of files that the snuffler should load. This file need not exist. If you
+// want to add a file that must exist, use AddFile.
 func (s *Snuffler) MaybeAddFile(p string) {
 	s.addFile(p)
 }

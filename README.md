@@ -29,7 +29,7 @@ func main() {
 	var cfg myConfig
 
 	// Build a new snuffler with a pointer to your config object.
-	s := snuffler.NewSnuffler(&cfg)
+	s := snuffler.New(&cfg)
 
 	// You can add a file by its absolute path. If it does not exist, you'll
 	// get an error. Probably a sign that your app wasn't installed
