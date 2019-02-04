@@ -49,7 +49,7 @@ func (c *confFile) read() ([]byte, error) {
 
 // openFiles opens each file in the fileMatches attribute to populate the files
 // attribute.
-func (s *snuffler) openFiles() error {
+func (s *Snuffler) openFiles() error {
 	for _, cf := range s.files {
 		if err := cf.open(); err != nil {
 			return err
@@ -60,19 +60,19 @@ func (s *snuffler) openFiles() error {
 
 // expandGlob finds all matching files in the pattern and returns confFiles it
 // finds.
-func (s *snuffler) expandGlob(g string) ([]*confFile, error) {
+func (s *Snuffler) expandGlob(g string) ([]*confFile, error) {
 	return []*confFile{}, errors.New("not implemented")
 }
 
 // expandPath gets the absolute path of a filePath pattern and returns the
 // associated confFile.
-func (s *snuffler) expandPath(p string) (*confFile, error) {
+func (s *Snuffler) expandPath(p string) (*confFile, error) {
 	return nil, errors.New("not implemented")
 }
 
 // GetFileMatchList returns the list of file names matched by the list of
 // patterns the snuffler knows about.
-func (s *snuffler) GetFileMatchList() []string {
+func (s *Snuffler) GetFileMatchList() []string {
 	matchList := make([]string, len(s.files))
 	for i, cf := range s.files {
 		matchList[i] = cf.fileName
@@ -81,7 +81,7 @@ func (s *snuffler) GetFileMatchList() []string {
 }
 
 // GetFileList returns all of the files the snuffler knows about.
-func (s *snuffler) GetFileList() []*os.File {
+func (s *Snuffler) GetFileList() []*os.File {
 	fileList := make([]*os.File, len(s.files))
 	for i, cf := range s.files {
 		fileList[i] = cf.file
