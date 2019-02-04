@@ -2,6 +2,7 @@ package snuffler
 
 import (
 	"errors"
+	"path/filepath"
 )
 
 // Snuffler is the primary object holding all of the bits required to snuffle
@@ -16,34 +17,28 @@ type Snuffler struct {
 // files that the snuffler should load. This file must exist. If you want to
 // add a file that may or may not exist, use MaybeAddFile.
 func (s *Snuffler) AddFile(p string) error {
-	return errors.New("not implemented")
+	return s.addFile(p)
 }
 
 // AddFile accepts a string containing a filename and adds it to the list of
 // files that the snuffler should load. This file need not exist. If you want
 // to add a file that must exist, use AddFile.
-func (s *Snuffler) MaybeAddFile(p string) error {
-	return errors.New("not implemented")
+func (s *Snuffler) MaybeAddFile(p string) {
+	s.addFile(p)
 }
 
 // AddGlob accepts a string containing a Glob[0] to search for config files.
-// The fully specified portion of the path must exist (that is, for the glob
-// `/path/to/files/*/*.yaml`, `/path/to/files` must exist). If you want to add
-// a glob where that needn't be true, use MaybeAddGlob.
 //
 // [0]: https://golang.org/pkg/path/filepath/#Glob
 func (s *Snuffler) AddGlob(g string) error {
-	return errors.New("not implemented")
-}
-
-// MaybeAddGlob accepts a string containing a Glob[0] to search for config
-// files. The fully specified portion of the path need not exist (that is, for
-// the glob `/path/to/files/*/*.yaml`, `/path/to/files` must exist). If you
-// want to add a glob where the path must exist be true, use AddGlob.
-//
-// [0]: https://golang.org/pkg/path/filepath/#Glob
-func (s *Snuffler) MaybeAddGlob(g string) error {
-	return errors.New("not implemented")
+	matches, err := filepath.Glob(g)
+	if err != nil {
+		return err
+	}
+	for _, match := range matches {
+		s.addFile(match)
+	}
+	return nil
 }
 
 // Snuffle performs the noble task of snuffling through all of the specified
@@ -51,6 +46,13 @@ func (s *Snuffler) MaybeAddGlob(g string) error {
 // loaded in the order they were received, and values are overwritten if
 // subsequent files specify them.
 func (s *Snuffler) Snuffle() error {
+	return errors.New("not implemented")
+}
+
+// Snorfle performs all the same tasks as Snuffle, but does not use the stored
+// config object reference, instead populating the one that is provided as an
+// argument.
+func (s *Snuffler) Snorfle(cfg *interface{}) error {
 	return errors.New("not implemented")
 }
 

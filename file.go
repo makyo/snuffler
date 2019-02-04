@@ -5,6 +5,8 @@ import (
 	"os"
 )
 
+var FileNotFoundError error = errors.New("file not found")
+
 // _patternType represents what type of pattern each filePattern is. It can be
 // a path or a glob.
 type _patternType int
@@ -25,7 +27,8 @@ type filePattern struct {
 type _fileType int
 
 const (
-	yamlType _fileType = iota
+	unknownType _fileType = iota
+	yamlType
 	tomlType
 )
 
@@ -47,6 +50,27 @@ func (c *confFile) read() ([]byte, error) {
 	return []byte{}, errors.New("not implemented")
 }
 
+// addFile checks if the file with the given path exists. If so, it adds it
+// to the list of config files regardless of type. If not, it returns a
+// FileNotFoundError.
+func (s *Snuffler) addFile(p string) error {
+	if _, err := os.Stat(p); err != nil {
+		return FileNotFoundError
+	}
+	cf := &confFile{
+		fileName: p,
+	}
+	if isYAML(p) {
+		cf.fileType = yamlType
+	} else if isTOML(p) {
+		cf.fileType = tomlType
+	} else {
+		cf.fileType = unknownType
+	}
+	s.files = append(s.files, cf)
+	return nil
+}
+
 // openFiles opens each file in the fileMatches attribute to populate the files
 // attribute.
 func (s *Snuffler) openFiles() error {
@@ -56,18 +80,6 @@ func (s *Snuffler) openFiles() error {
 		}
 	}
 	return nil
-}
-
-// expandGlob finds all matching files in the pattern and returns confFiles it
-// finds.
-func (s *Snuffler) expandGlob(g string) ([]*confFile, error) {
-	return []*confFile{}, errors.New("not implemented")
-}
-
-// expandPath gets the absolute path of a filePath pattern and returns the
-// associated confFile.
-func (s *Snuffler) expandPath(p string) (*confFile, error) {
-	return nil, errors.New("not implemented")
 }
 
 // GetFileMatchList returns the list of file names matched by the list of
@@ -87,4 +99,16 @@ func (s *Snuffler) GetFileList() []*os.File {
 		fileList[i] = cf.file
 	}
 	return fileList
+}
+
+// isYAML attempts to guess in a very stupid fashion whether or not a file is
+// a YAML file.
+func isYAML(p string) bool {
+	return p[len(p)-4:] == "yaml" || p[len(p)-3:] == "yml"
+}
+
+// isTOML attempts to guess in a very stupid fashion whether or not a file is
+// a TOML file.
+func isTOML(p string) bool {
+	return p[len(p)-4:] == "toml"
 }
