@@ -14,5 +14,5 @@ Snuffle your way through config files to the configuration your app needs.
 
 ## Design decisions
 
-* YAML only - it's the most portable, and a single choice keeps this library simple
+* YAML or TOML at first (pick one), to keep Dev fast and this project small
 
