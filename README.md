@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/makyo/snuffler.svg?branch=master)](https://travis-ci.org/makyo/snuffler)
 [![GoDoc reference](https://godoc.org/github.com/makyo/snuffler?status.svg)](https://godoc.org/github.com/makyo/snuffler)
 [![Support me on Patreon](https://img.shields.io/badge/patreon-support-%23222222.svg)](https://patreon.com/makyo)
 [![Buy me a Coffee](https://img.shields.io/badge/kofi-support-%23222222.svg)](https://ko-fi.com/drabmakyo)
