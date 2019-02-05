@@ -7,7 +7,7 @@
 # Snuffler
 
 Snuffler will snuffle through all of the paths and globs you provide to look
-for config files (YAML and TOML, for the moment), and use those to populate
+for config files (YAML, TOML, and JSON, for the moment), and use those to populate
 the config object you provide. It will clobber existing keys, but that's
 often what you want when generating user specific config which has the
 ability to override global config. Simply provide the paths/glob where config
@@ -31,7 +31,7 @@ func main() {
 		panic(err)
 	}
 
-	// Somewhere else, you've created a YAML/TOML ready config struct...
+	// Somewhere else, you've created a YAML/TOML/JSON ready config struct...
 	var cfg myConfig
 
 	// Build a new snuffler with a pointer to your config object.
