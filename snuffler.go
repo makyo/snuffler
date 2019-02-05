@@ -1,7 +1,6 @@
 package snuffler
 
 import (
-	"errors"
 	"path/filepath"
 )
 
@@ -10,7 +9,7 @@ import (
 type Snuffler struct {
 	conf         *interface{}
 	filePatterns []filePattern
-	files        []*confFile
+	files        []*configFile
 }
 
 // AddFile accepts a string containing a filename and adds it to the list of
@@ -46,14 +45,14 @@ func (s *Snuffler) AddGlob(g string) error {
 // loaded in the order they were received, and values are overwritten if
 // subsequent files specify them.
 func (s *Snuffler) Snuffle() error {
-	return errors.New("not implemented")
+	return s.unmarshalFiles(s.conf)
 }
 
 // Snorfle performs all the same tasks as Snuffle, but does not use the stored
 // config object reference, instead populating the one that is provided as an
 // argument.
-func (s *Snuffler) Snorfle(cfg *interface{}) error {
-	return errors.New("not implemented")
+func (s *Snuffler) Snorfle(conf *interface{}) error {
+	return s.unmarshalFiles(conf)
 }
 
 // New creates a new snuffler object with the given interface. You can then
