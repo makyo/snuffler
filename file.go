@@ -43,6 +43,11 @@ func (s *Snuffler) addFile(p string) error {
 	if _, err := os.Stat(p); err != nil {
 		return err
 	}
+	for _, cf := range s.files {
+		if p == cf.fileName {
+			return nil
+		}
+	}
 	cf := &configFile{
 		fileName: p,
 	}

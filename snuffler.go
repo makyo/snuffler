@@ -7,7 +7,7 @@ import (
 // Snuffler is the primary object holding all of the bits required to snuffle
 // through config files.
 type Snuffler struct {
-	conf         *interface{}
+	conf         interface{}
 	filePatterns []filePattern
 	files        []*configFile
 }
@@ -29,15 +29,11 @@ func (s *Snuffler) MaybeAddFile(p string) {
 // AddGlob accepts a string containing a Glob[0] to search for config files.
 //
 // [0]: https://golang.org/pkg/path/filepath/#Glob
-func (s *Snuffler) AddGlob(g string) error {
-	matches, err := filepath.Glob(g)
-	if err != nil {
-		return err
-	}
+func (s *Snuffler) AddGlob(g string) {
+	matches, _ := filepath.Glob(g)
 	for _, match := range matches {
 		s.addFile(match)
 	}
-	return nil
 }
 
 // Snuffle performs the noble task of snuffling through all of the specified
@@ -51,14 +47,14 @@ func (s *Snuffler) Snuffle() error {
 // Snorfle performs all the same tasks as Snuffle, but does not use the stored
 // config object reference, instead populating the one that is provided as an
 // argument.
-func (s *Snuffler) Snorfle(conf *interface{}) error {
+func (s *Snuffler) Snorfle(conf interface{}) error {
 	return s.unmarshalFiles(conf)
 }
 
 // New creates a new snuffler object with the given interface. You can then
 // add files to the resulting snuffler and, when run, it will load the config
 // from each of them into the interface.
-func New(c *interface{}) *Snuffler {
+func New(c interface{}) *Snuffler {
 	return &Snuffler{
 		conf: c,
 	}
