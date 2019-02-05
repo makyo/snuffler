@@ -68,18 +68,3 @@ func main() {
 	s.Snorfle(&secondConfig)
 }
 ```
-
-## Goals
-
-* Be able to build a config object from many sources
-    * Global config files (e.g: in `/etc/appname`)
-    * User config files (e.g: in `$HOME/.config/appname`)
-    * An expected path (e.g: `$HOME/.appnamerc`)
-    * ~~A specified file (e.g: via `appname -c conf.yaml`)~~ that's on `appname`
-    * TODO: Environment variables
-* Merge all these sources into a single config object - more specific clobbers more general
-
-## Design decisions
-
-* YAML or TOML at first, to keep Dev fast and this project small
-
