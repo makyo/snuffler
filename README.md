@@ -6,12 +6,7 @@
 
 # Snuffler
 
-Snuffler will snuffle through all of the paths and globs you provide to look
-for config files (YAML, TOML, and JSON, for the moment), and use those to populate
-the config object you provide. It will clobber existing keys, but that's
-often what you want when generating user specific config which has the
-ability to override global config. Simply provide the paths/glob where config
-might live and it will root through them in order for config files.
+Snuffler will snuffle through all of the paths and globs you provide to look for config files (YAML, TOML, and JSON, for the moment), and use those to populate the config object you provide. It will clobber existing keys, but that's often what you want when generating user specific config which has the ability to override global config. Simply provide the paths/glob where config might live and it will root through them in order for config files.
 
 For example:
 
