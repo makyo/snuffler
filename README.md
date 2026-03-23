@@ -52,7 +52,7 @@ func main() {
 	// If a file might not exist, you can easily add it without worrying
 	// about an error (and make it obvious to the readers of the code that
 	// you're okay with that) by using MaybeAddFile.
-	s.MaybeAddFile(filepath.Join(home, ".myApprc")
+	s.MaybeAddFile(filepath.Join(home, ".myApprc"))
 
 	// Snuffle will read in all of the files in the order specified above
 	// and unmarshal them into the cfg object provided above.
